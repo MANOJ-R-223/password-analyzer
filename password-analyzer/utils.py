@@ -51,3 +51,37 @@ def load_common_passwords():
 
 def is_common_password(password, common_passwords):
     return password.lower() in common_passwords
+
+def estimate_crack_time(password):
+    charset_size = 0
+
+    if re.search(r"[a-z]",password):
+        charset_size += 26
+    if re.search(r"[A-Z]",password):
+        charset_size += 26
+    if re.search(r"[0-9]",password):
+        charset_size += 10
+    if re.search(r"[^a-zA-Z0-9]",password):
+        charset_size += 32
+
+    length = len(password)
+
+    combinations = charset_size ** length
+
+    guesses_per_sec = 1000000
+
+    seconds = combinations/guesses_per_sec
+
+    return format_time(seconds)
+
+def format_time(seconds):
+    if seconds < 60:
+        return f"{int(seconds)} seconds"
+    elif seconds < 3600:
+        return f"{int(seconds // 60)} minutes"
+    elif seconds < 86400:
+        return f"{int(seconds // 3600)} hours"
+    elif seconds < 31536000:
+        return f"{int(seconds // 86400)} days"
+    else:
+        return f"{int(seconds // 31536000)} years"
