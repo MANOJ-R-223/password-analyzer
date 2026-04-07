@@ -27,10 +27,12 @@ def hash_password(password):
 
 def load_common_passwords():
     passwords = set()
-
-    with open("rockyou.txt", "r", encoding="latin-1") as file:
-        for line in file:
-            passwords.add(line.strip())
+    try:
+        with open("rockyou.txt", "r", encoding="latin-1") as file:
+            for line in file:
+                passwords.add(line.strip())
+    except FileNotFoundError:
+        return set()
 
     return passwords
 
