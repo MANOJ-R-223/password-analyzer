@@ -13,7 +13,14 @@ def main():
     if common_passwords and is_common_password(pwd, common_passwords):
         print("\nWeak Password : Your password is found in leaked dataset")
     else:
-        print("\nStrength:", check_password(pwd))
+        strength, suggestions = check_password(pwd)
+        print("\nStrength :",strength)
+
+        if suggestions:
+            print("\nSuggestions to improve:")
+            for s in suggestions:
+                print("\n->",s)
+
 
 if __name__ == "__main__":
     main()
