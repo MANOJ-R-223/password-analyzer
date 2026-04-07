@@ -1,3 +1,4 @@
+import hashlib
 import re
 
 def check_password(password):
@@ -19,3 +20,19 @@ def check_password(password):
     elif score <= 4:
         return "Medium"
     return "Strong"
+
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def load_common_passwords():
+    passwords = set()
+
+    with open("rockyou.txt", "r", encoding="latin-1") as file:
+        for line in file:
+            passwords.add(line.strip())
+
+    return passwords
+
+def is_common_password(password, common_passwords):
+    return password.lower() in common_passwords
