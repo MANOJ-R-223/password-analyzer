@@ -105,7 +105,7 @@ Strength: Strong
 
 ## Author
 
-Your Name
+MANOJ R
 
 ---
 
