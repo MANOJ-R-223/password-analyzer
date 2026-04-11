@@ -104,3 +104,31 @@ def generate_password(length = 12):
 
     return "".join(password)
 
+def detect_patterns(password):
+    patterns = []
+
+    sequences = "0123456789"
+
+    for i in range(len(sequences) - 2):
+        seq = sequences[i:i+3]
+        if seq in password:
+            patterns.append("Contains sequential numbers")
+            break
+
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    pwd_lower = password.lower()
+
+    for i in range(len(letters) - 2):
+        seq = letters[i:i+3]
+        if seq in pwd_lower:
+            patterns.append("Contains sequential letters")
+            break
+
+    if len(set(password)) < len(password) / 2:
+        patterns.append("Too many repeated characters")
+        
+    if "password" in pwd_lower:
+        patterns.append("Contains common word 'password'")
+
+    return patterns
+

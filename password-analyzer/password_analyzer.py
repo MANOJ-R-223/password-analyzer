@@ -1,4 +1,4 @@
-from utils import check_password, hash_password, load_common_passwords, is_common_password, estimate_crack_time, generate_password
+from utils import check_password, hash_password, load_common_passwords, is_common_password, estimate_crack_time, generate_password, detect_patterns
 
 def main():
     print("\nLoading common passwords...")
@@ -19,6 +19,13 @@ def main():
 
             pwd = input("\nEnter password: ")
             print("\nSHA-256 Hash:", hash_password(pwd))
+
+            patterns = detect_patterns(pwd)
+
+            if patterns:
+                print("\nWeak Patterns Detected:")
+                for p in patterns:
+                    print("-", p)
 
             if common_passwords and is_common_password(pwd, common_passwords):
                 print("\nWeak Password : Your password is found in leaked dataset")
