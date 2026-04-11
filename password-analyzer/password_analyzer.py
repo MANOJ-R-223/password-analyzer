@@ -47,7 +47,7 @@ def main():
                     for s in suggestions:
                         print(f" - {s}")
     
-            print(f"\nEstimated Time      : {estimate_crack_time(pwd)}")
+            print(f"\nEstimated Crack Time: {estimate_crack_time(pwd)}")
 
         elif choice == "2":
             try: 
