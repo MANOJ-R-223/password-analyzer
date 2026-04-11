@@ -1,3 +1,4 @@
+import time
 from utils import check_password, hash_password, load_common_passwords, is_common_password, estimate_crack_time, generate_password, detect_patterns
 
 def main():
@@ -8,41 +9,52 @@ def main():
         print("Dataset not loaded. Skipping leak check.")
 
     while True:
-        print("\n====== PASSWORD ANALYZER ======")
-        print("1.Enter Password")
-        print("2.Generate Password")
-        print("3.Exit")
+        print("\n" + "="*40)
+        print("           PASSWORD ANALYZER")
+        print("="*40)
+        print("1. Enter Password")
+        print("2. Generate Password")
+        print("3. Exit")
 
         choice = input("\nEnter choice : ")
 
         if choice == "1":
 
             pwd = input("\nEnter password: ")
-            print("\nSHA-256 Hash:", hash_password(pwd))
+            print("\nAnalyzing password", end="")
+            for _ in range(3):
+                time.sleep(0.5)
+                print(".", end="", flush=True)
+            print()
+
+            print(f"\nHash                : {hash_password(pwd)}")
 
             patterns = detect_patterns(pwd)
 
             if patterns:
-                print("\nWeak Patterns Detected:")
+                print("\n[!] Weak Patterns Detected:")
                 for p in patterns:
                     print("-", p)
 
             if common_passwords and is_common_password(pwd, common_passwords):
-                print("\nWeak Password : Your password is found in leaked dataset")
+                print("\nWeak Password       : Found in leaked dataset")
             else:
                 strength, suggestions = check_password(pwd)
-                print("\nStrength :",strength)
+                print(f"\nStrength            : {strength}")
 
                 if suggestions:
                     print("\nSuggestions to improve:")
                     for s in suggestions:
-                        print("\n->",s)
+                        print(f" - {s}")
     
-            print("\nEstimated crack time: ", estimate_crack_time(pwd))
+            print(f"\nEstimated Time      : {estimate_crack_time(pwd)}")
 
         elif choice == "2":
-            length = int(input("Enter desired password length : "))
-            print("\nGenerated Password : ", generate_password(length))
+            try: 
+                length = int(input("Enter desired password length : "))
+                print(f"\nGenerated Password : {generate_password(length)}")
+            except ValueError:
+                print("Please enter a valid number")
 
         elif choice == "3":
             print("\nExiting....")
@@ -50,6 +62,8 @@ def main():
 
         else:
             print("Invalid Option. Try Again")
+
+        print("\n" + "-"*40)
             
 
 
