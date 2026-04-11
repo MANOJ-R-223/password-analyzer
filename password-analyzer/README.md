@@ -60,6 +60,7 @@ Additionally, the tool provides actionable suggestions to improve weak passwords
 
 ## Project Structure
 
+```
 password-analyzer/
 │
 ├── password_analyzer.py   # Main application (CLI interface)
@@ -67,6 +68,7 @@ password-analyzer/
 ├── rockyou.txt            # Optional leaked password dataset
 ├── .gitignore
 └── README.md
+```
 
 ---
 
