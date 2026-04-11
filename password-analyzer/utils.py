@@ -1,5 +1,7 @@
 import hashlib
 import re
+import random
+import string
 
 def check_password(password):
     score = 0
@@ -85,3 +87,20 @@ def format_time(seconds):
         return f"{int(seconds // 86400)} days"
     else:
         return f"{int(seconds // 31536000)} years"
+    
+def generate_password(length = 12):
+    if length < 6:
+        return "Password length should be at least 6"
+
+    lower = string.ascii_lowercase
+    upper = string.ascii_uppercase
+    digits = string.digits
+    special = "!@#$%^&*"
+
+    password = [random.choice(lower),random.choice(upper),random.choice(digits),random.choice(special)]
+    all_char = lower + upper + digits + special
+    password += random.choices(all_char,k=length-4)
+    random.shuffle(password)
+
+    return "".join(password)
+

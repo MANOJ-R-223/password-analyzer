@@ -1,4 +1,4 @@
-from utils import check_password, hash_password, load_common_passwords, is_common_password, estimate_crack_time
+from utils import check_password, hash_password, load_common_passwords, is_common_password, estimate_crack_time, generate_password
 
 def main():
     print("\nLoading common passwords...")
@@ -10,7 +10,8 @@ def main():
     while True:
         print("\n====== PASSWORD ANALYZER ======")
         print("1.Enter Password")
-        print("2.Exit")
+        print("2.Generate Password")
+        print("3.Exit")
 
         choice = input("\nEnter choice : ")
 
@@ -33,6 +34,10 @@ def main():
             print("\nEstimated crack time: ", estimate_crack_time(pwd))
 
         elif choice == "2":
+            length = int(input("Enter desired password length : "))
+            print("\nGenerated Password : ", generate_password(length))
+
+        elif choice == "3":
             print("\nExiting....")
             break
 
